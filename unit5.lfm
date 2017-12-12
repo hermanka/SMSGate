@@ -1,0 +1,74 @@
+object frmOutbox: TfrmOutbox
+  Left = 350
+  Height = 296
+  Top = 294
+  Width = 680
+  Align = alClient
+  BorderStyle = bsNone
+  Caption = 'Outbox'
+  ClientHeight = 296
+  ClientWidth = 680
+  Color = clWhite
+  FormStyle = fsMDIChild
+  OnCreate = FormCreate
+  LCLVersion = '1.4.0.4'
+  object Button1: TButton
+    Left = 64
+    Height = 25
+    Top = 24
+    Width = 75
+    Caption = 'Forward'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object GridOutbox: TDBGrid
+    Left = 192
+    Height = 280
+    Top = 8
+    Width = 480
+    Color = clWindow
+    Columns = <>
+    ReadOnly = True
+    Scrollbars = ssAutoVertical
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 64
+    Height = 25
+    Top = 56
+    Width = 75
+    Caption = 'Reply'
+    TabOrder = 2
+  end
+  object Button3: TButton
+    Left = 64
+    Height = 25
+    Top = 96
+    Width = 75
+    Caption = 'Delete'
+    TabOrder = 3
+  end
+  object Button4: TButton
+    Left = 64
+    Height = 25
+    Top = 132
+    Width = 75
+    Caption = 'Resend'
+    TabOrder = 4
+  end
+  object Q1: TSQLQuery
+    FieldDefs = <>
+    Params = <>
+    left = 193
+    top = 14
+  end
+  object Trans: TSQLTransaction
+    Active = False
+    left = 240
+    top = 14
+  end
+  object DataSource1: TDataSource
+    left = 312
+    top = 14
+  end
+end

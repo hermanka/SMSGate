@@ -1,0 +1,19 @@
+object Frame1: TFrame1
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  ClientHeight = 240
+  ClientWidth = 320
+  TabOrder = 0
+  DesignLeft = 528
+  DesignTop = 290
+  object Label1: TLabel
+    Left = 74
+    Height = 15
+    Top = 45
+    Width = 49
+    Caption = 'Ini Frame'
+    ParentColor = False
+  end
+end

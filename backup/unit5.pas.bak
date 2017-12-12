@@ -1,0 +1,91 @@
+unit Unit5;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, sqldb, db, odbcconn, FileUtil, Forms, Controls, Graphics,
+  Dialogs, StdCtrls, DBGrids;
+
+type
+
+  { TfrmOutbox }
+
+  TfrmOutbox = class(TForm)
+    Button1: TButton;
+    DataSource1: TDataSource;
+    GridOutbox: TDBGrid;
+    Q1: TSQLQuery;
+    Trans: TSQLTransaction;
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
+
+var
+  frmOutbox: TfrmOutbox;
+
+implementation
+
+{$R *.lfm}
+
+{ TfrmOutbox }
+uses unit1, konekMySQL;
+var
+  conn : string;
+
+procedure TfrmOutbox.Button1Click(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TfrmOutbox.FormCreate(Sender: TObject);
+begin
+   conn := Koneksi('connection');
+   if (conn='ODBC') then
+     begin
+       Trans.DataBase:=mainForm.ODBCConn;
+       Q1.DataBase:=mainForm.ODBCConn;
+     end
+   else
+     begin
+          Trans.DataBase:=mainForm.DLLConn;
+          Q1.DataBase:=mainForm.DLLConn;
+     end;
+
+   Q1.Active:=False;
+   Q1.SQL.Clear;
+   Q1.SQL.add('SELECT DestinationNumber, CAST(TextDecoded as char(32)) as konten, SendingDateTime FROM outbox ORDER BY SendingDateTime');
+   Q1.Active:=TRUE;
+
+   DataSource1.DataSet:=Q1;
+   GridOutbox.DataSource:=DataSource1;
+
+    // Setting Kolom DBGRID
+   GridOutbox.Columns.Clear;
+   GridOutbox.Columns.Add;
+  with GridOutbox.Columns[GridOutbox.Columns.Count - 1] do begin
+    FieldName := 'SendingDateTime';
+    Title.Caption := 'Sending Time';
+    Width := 150;
+  end;
+  GridOutbox.Columns.Add;
+  with GridOutbox.Columns[GridOutbox.Columns.Count - 1] do begin
+    FieldName := 'DestinationNumber';
+    Title.Caption := 'Dest. Number';
+    Width := 100;
+  end;
+  GridOutbox.Columns.Add;
+  with GridOutbox.Columns[GridOutbox.Columns.Count - 1] do begin
+    FieldName := 'konten';
+    Title.Caption := 'Message';
+    Width := 210;
+  end;
+end;
+
+end.
+
